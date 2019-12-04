@@ -101,6 +101,7 @@ bool Initializer::Initialize(const Frame &CurrentFrame, const vector<int> &vMatc
     float SH, SF;
     cv::Mat H, F;
 
+    //std::cout << "hi3 ";
     thread threadH(&Initializer::FindHomography,this,ref(vbMatchesInliersH), ref(SH), ref(H));
     thread threadF(&Initializer::FindFundamental,this,ref(vbMatchesInliersF), ref(SF), ref(F));
 
@@ -111,12 +112,20 @@ bool Initializer::Initialize(const Frame &CurrentFrame, const vector<int> &vMatc
     // Compute ratio of scores
     float RH = SH/(SH+SF);
 
+    //std::cout << "hi4 ";
     // Try to reconstruct from homography or fundamental depending on the ratio (0.40-0.45)
     if(RH>0.40)
+    {
+        std::cout << "hi5 ";
         return ReconstructH(vbMatchesInliersH,H,mK,R21,t21,vP3D,vbTriangulated,1.0,50);
+    }
     else //if(pF_HF>0.6)
+    {
+        //std::cout << "hi6 ";
         return ReconstructF(vbMatchesInliersF,F,mK,R21,t21,vP3D,vbTriangulated,1.0,50);
+    }
 
+    
     return false;
 }
 
@@ -565,7 +574,7 @@ bool Initializer::ReconstructF(vector<bool> &vbMatchesInliers, cv::Mat &F21, cv:
             return true;
         }
     }
-
+    std::cout << "hi7 ";
     return false;
 }
 
@@ -715,19 +724,26 @@ bool Initializer::ReconstructH(vector<bool> &vbMatchesInliers, cv::Mat &H21, cv:
         {
             secondBestGood = nGood;
         }
+        /* if (secondBestGood == bestGood)
+        {
+            std::cout << i << ' ' << bestGood << ' ';
+        } */
     }
+    //std::cout << endl;
+    //std::cout << (secondBestGood<0.75*bestGood) << ' ' << (bestParallax>=minParallax) << ' ' << (bestGood>minTriangulated) << ' ' << (bestGood>0.9*N) << endl;
+    //std::cout << secondBestGood << ' ' << 0.75*bestGood << endl;
 
-
-    if(secondBestGood<0.75*bestGood && bestParallax>=minParallax && bestGood>minTriangulated && bestGood>0.9*N)
+    if((secondBestGood<0.75*bestGood || 1) && bestParallax>=minParallax && bestGood>minTriangulated && bestGood>0.9*N)
     {
         vR[bestSolutionIdx].copyTo(R21);
         vt[bestSolutionIdx].copyTo(t21);
         vP3D = bestP3D;
         vbTriangulated = bestTriangulated;
 
+        std::cout << "yo ";
         return true;
     }
-
+    //std::cout << "no ";
     return false;
 }
 

@@ -111,6 +111,7 @@ System::System(const string &strVocFile, const string &strSettingsFile, const eS
 
     mpLoopCloser->SetTracker(mpTracker);
     mpLoopCloser->SetLocalMapper(mpLocalMapper);
+    std::cout << "one";
 }
 
 cv::Mat System::TrackStereo(const cv::Mat &imLeft, const cv::Mat &imRight, const double &timestamp)
@@ -217,6 +218,7 @@ cv::Mat System::TrackRGBD(const cv::Mat &im, const cv::Mat &depthmap, const doub
 
 cv::Mat System::TrackMonocular(const cv::Mat &im, const double &timestamp)
 {
+    //std::cout << "two";
     if(mSensor!=MONOCULAR)
     {
         cerr << "ERROR: you called TrackMonocular but input sensor was not set to Monocular." << endl;
@@ -236,8 +238,13 @@ cv::Mat System::TrackMonocular(const cv::Mat &im, const double &timestamp)
                 usleep(1000);
             }
 
+            /*
+            delete mpViewer;
+            mpViewer = static_cast<Viewer*>(NULL);
+            */
+
             mpTracker->InformOnlyTracking(true);
-            mbActivateLocalizationMode = false;
+            mbActivateLocalizationMode = false;        
         }
         if(mbDeactivateLocalizationMode)
         {
@@ -256,7 +263,7 @@ cv::Mat System::TrackMonocular(const cv::Mat &im, const double &timestamp)
         mbReset = false;
     }
     }
-
+    //std::cout << "three";
     cv::Mat Tcw = mpTracker->GrabImageMonocular(im,timestamp);
 
     unique_lock<mutex> lock2(mMutexState);
@@ -307,6 +314,11 @@ void System::Shutdown()
         mpViewer->RequestFinish();
         while(!mpViewer->isFinished())
             usleep(5000);
+
+        /*
+        delete mpViewer;
+        mpViewer = static_cast<Viewer*>(NULL);
+        */
     }
 
     // Wait until all thread have effectively stopped

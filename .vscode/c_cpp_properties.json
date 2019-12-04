@@ -1,0 +1,21 @@
+{
+    "env": {
+        "myDefaultIncludePath": ["${workspaceFolder}", "${workspaceFolder}/include"],
+        "myCompilerPath": "/usr/bin/gcc"
+    },
+    "configurations": [
+        {
+            "name": "Linux",
+            "includePath": [
+                "${myDefaultIncludePath}",
+                "/usr/include/linux"
+            ],
+            "defines": [],
+            "compilerPath": "/usr/bin/gcc",
+            "cStandard": "c11",
+            "cppStandard": "c++17",
+            "intelliSenseMode": "clang-x64"
+        }
+    ],
+    "version": 4
+}

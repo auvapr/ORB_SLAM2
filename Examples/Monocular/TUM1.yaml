@@ -5,10 +5,10 @@
 #--------------------------------------------------------------------------------------------
 
 # Camera calibration and distortion parameters (OpenCV) 
-Camera.fx: 517.306408
-Camera.fy: 516.469215
-Camera.cx: 318.643040
-Camera.cy: 255.313989
+Camera.fx: 1023.890408
+Camera.fy: 1023.890215
+Camera.cx: 322.643040
+Camera.cy: 202.313989
 
 Camera.k1: 0.262383
 Camera.k2: -0.953104
@@ -17,7 +17,7 @@ Camera.p2: 0.002628
 Camera.k3: 1.163314
 
 # Camera frames per second 
-Camera.fps: 30.0
+Camera.fps: 6.0
 
 # Color order of the images (0: BGR, 1: RGB. It is ignored if images are grayscale)
 Camera.RGB: 1
@@ -40,7 +40,7 @@ ORBextractor.nLevels: 8
 # Firstly we impose iniThFAST. If no corners are detected we impose a lower value minThFAST
 # You can lower these values if your images have low contrast			
 ORBextractor.iniThFAST: 20
-ORBextractor.minThFAST: 7
+ORBextractor.minThFAST: 8
 
 #--------------------------------------------------------------------------------------------
 # Viewer Parameters
