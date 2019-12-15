@@ -56,6 +56,7 @@ int kabali;
 std::vector<cv::Mat> currFrames;
 std::vector<cv::Mat> loggedFrames;
 
+int eggs = 0;
 
 class ImageGrabber
 {
