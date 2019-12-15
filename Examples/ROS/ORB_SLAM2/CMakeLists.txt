@@ -40,11 +40,16 @@ endif()
 
 find_package(Eigen3 3.1.0 REQUIRED)
 find_package(Pangolin REQUIRED)
+find_package(catkin REQUIRED COMPONENTS
+    auv_lib
+)
 
 include_directories(
 ${PROJECT_SOURCE_DIR}
 ${PROJECT_SOURCE_DIR}/../../../
 ${PROJECT_SOURCE_DIR}/../../../include
+${PROJECT_SOURCE_DIR}/../../../../robosub/auv_lib/
+${PROJECT_SOURCE_DIR}/../../../../robosub/auv_lib/include
 ${Pangolin_INCLUDE_DIRS}
 )
 
@@ -61,6 +66,8 @@ ${PROJECT_SOURCE_DIR}/../../../lib/libORB_SLAM2.so
 # Node for monocular camera
 rosbuild_add_executable(Mono
 src/ros_mono.cc
+${PROJECT_SOURCE_DIR}/../../../../robosub/auv_lib/src/transformation/pose_transform.cpp
+${PROJECT_SOURCE_DIR}/../../../../robosub/auv_lib/src/transformation/matrices.cpp
 )
 
 target_link_libraries(Mono

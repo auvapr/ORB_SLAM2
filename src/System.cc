@@ -264,7 +264,14 @@ cv::Mat System::TrackMonocular(const cv::Mat &im, const double &timestamp)
     }
     }
     //std::cout << "three";
+
     cv::Mat Tcw = mpTracker->GrabImageMonocular(im,timestamp);
+    //std::cout << Tcw.size;
+    /* if (cv::Mat(4,4,CV_8UC1, 1).size() == Tcw.size())
+    {
+        std::cout << (Tcw.rowRange(0,3).col(3)) << endl;
+    } */
+
 
     unique_lock<mutex> lock2(mMutexState);
     mTrackingState = mpTracker->mState;

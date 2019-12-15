@@ -1,0 +1,2 @@
+bool executionPossible
+bool executionComplete

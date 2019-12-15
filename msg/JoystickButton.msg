@@ -1,0 +1,15 @@
+Header header
+char Mode
+float32 DigitalJockey_LeftRight
+float32 DigitalJockey_UpDown
+int32 A
+int32 B
+int32 X
+int32 Y
+int32 LB
+int32 RB
+int32 Back
+int32 Start
+int32 Logitech
+int32 LeftJockeyButton
+int32 RightJockeyButton
